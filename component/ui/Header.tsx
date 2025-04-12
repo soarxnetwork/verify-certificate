@@ -28,7 +28,6 @@ const Header = () => {
         <nav className="navbar lg:ml-16 lg:mr-20 rounded-lg bg-white dark:border-0 dark:bg-gray-800  flex justify-between items-center">
           <a
             href="https://campuscode.in"
-            target="_blank"
             rel="noopener noreferrer"
           >
             <div className="flex items-center">
@@ -65,7 +64,6 @@ const Header = () => {
                 <a
                   className="hover:text-[#4BA492] hover:transition-all ease-in-out duration-300 p-2"
                   href="https://campuscode.in"
-                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   Home
@@ -82,7 +80,7 @@ const Header = () => {
                 <a
                   className="hover:text-[#4BA492] p-2"
                   href="https://www.campuscode.in/events"
-                  target="_blank"
+                 
                   rel="noopener noreferrer"
                 >
                   Events
@@ -130,7 +128,7 @@ const Header = () => {
                 <a
                   className="hover:text-[#4BA492] hover:transition-all ease-in-out duration-300 p-2"
                   href="https://campuscode.in"
-                  target="_blank"
+                 
                   rel="noopener noreferrer"
                 >
                   Home
@@ -147,7 +145,7 @@ const Header = () => {
                 <a
                   className="hover:text-[#4BA492] p-2"
                   href="https://www.campuscode.in/events"
-                  target="_blank"
+                  
                   rel="noopener noreferrer"
                 >
                   Events
