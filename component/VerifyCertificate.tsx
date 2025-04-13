@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-
 import {
   Html5Qrcode,
   Html5QrcodeSupportedFormats,
@@ -9,6 +8,8 @@ import {
 } from "html5-qrcode";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ImageOcr from "./ImageOcr";
+import { MdCameraAlt } from "react-icons/md";
 
 const VerifyMyCertificate: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -19,6 +20,7 @@ const VerifyMyCertificate: React.FC = () => {
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
   const [currentCamera, setCurrentCamera] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [showOcr, setShowOcr] = useState(false);
 
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const qrRegionId = "qr-reader";
@@ -27,7 +29,6 @@ const VerifyMyCertificate: React.FC = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -75,11 +76,9 @@ const VerifyMyCertificate: React.FC = () => {
           }
         },
         (errorMessage) => {
-          // Optional: log or ignore scanning errors
           console.warn("QR Scan error:", errorMessage);
         }
       );
-      
 
       setCurrentCamera(deviceId);
       setScannerStarted(true);
@@ -114,31 +113,28 @@ const VerifyMyCertificate: React.FC = () => {
       const videoElement = document.querySelector("video") as HTMLVideoElement;
       const stream = videoElement?.srcObject as MediaStream;
       const track = stream?.getVideoTracks?.()[0];
-  
+
       if (!track) {
         toast.error("❌ No video track found");
         return;
       }
-  
-      // Bypass TypeScript's type checking for 'torch'
+
       const capabilities = track.getCapabilities?.() as MediaTrackCapabilities & { torch?: boolean };
       if (!capabilities?.torch) {
         toast.error("❌ Flashlight not supported on this device");
         return;
       }
-  
+
       await track.applyConstraints({
         advanced: [{ torch: !torchOn }] as unknown as MediaTrackConstraintSet[],
       });
-      
-  
+
       setTorchOn((prev) => !prev);
     } catch (err) {
       console.error("Torch toggle error:", err);
       toast.error("❌ Failed to toggle flashlight");
     }
   };
-  
 
   const switchCamera = () => {
     if (!cameras.length) return;
@@ -152,8 +148,8 @@ const VerifyMyCertificate: React.FC = () => {
     const zoom = parseFloat(e.target.value);
     setZoomValue(zoom);
     if (scannerRef.current) {
-        await (scannerRef.current as any)?.applyVideoConstraints?.({
-            advanced: [{ zoom }],  
+      await (scannerRef.current as any)?.applyVideoConstraints?.({
+        advanced: [{ zoom }],
       });
     }
   };
@@ -194,17 +190,11 @@ const VerifyMyCertificate: React.FC = () => {
     }, 1000);
   };
 
-  // ✅ Stop camera on tab change or navigation
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopScanner();
-      }
+      if (document.hidden) stopScanner();
     };
-
-    const handleUnload = () => {
-      stopScanner();
-    };
+    const handleUnload = () => stopScanner();
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("beforeunload", handleUnload);
@@ -216,14 +206,22 @@ const VerifyMyCertificate: React.FC = () => {
     };
   }, []);
 
-  return (
+  function handleTextExtracted(text: string): void {
+    if (text.trim()) {
+      setManualInput(text.trim());
+      toast.success("✅ Text extracted successfully!");
+    } else {
+      toast.error("❌ No valid text extracted.");
+    }
+  }
 
-    <div className="min-h-screen  flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
-      <div className="bg-white dark:bg-gray-800  p-4 rounded-lg shadow-lg w-full max-w-md flex flex-col items-center">
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md flex flex-col items-center">
         <h2 className="text-xl font-bold mb-2 text-gray-700 dark:text-gray-200">
           {scannerStarted ? "Scan QR Code" : "Camera Access Required"}
         </h2>
-        
+
         <div id={qrRegionId} className="w-full min-h-[250px]" />
 
         {scannerStarted && (
@@ -302,13 +300,21 @@ const VerifyMyCertificate: React.FC = () => {
           https://verification.givemycertificate.com/v/
         </p>
 
-        <input
-          className="w-full mt-1 text-black dark:text-white p-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
-          type="text"
-          value={manualInput}
-          onChange={(e) => setManualInput(e.target.value)}
-          placeholder="Enter certificate ID here"
-        />
+        <div className="flex w-full">
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={manualInput}
+              onChange={(e) => setManualInput(e.target.value)}
+              placeholder="Enter certificate ID here"
+              className="w-full mt-1 pl-3 pr-12 p-2 text-black dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+            <MdCameraAlt
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-600 text-2xl cursor-pointer"
+              onClick={() => setShowOcr(true)}
+            />
+          </div>
+        </div>
 
         <div className="flex gap-4 mt-4 w-full justify-end">
           <button
@@ -336,8 +342,28 @@ const VerifyMyCertificate: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* OCR Modal */}
+      {showOcr && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full relative">
+            <button
+              onClick={() => setShowOcr(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold"
+            >
+              &times;
+            </button>
+            <ImageOcr
+              onTextExtracted={(text) => {
+                handleTextExtracted(text);
+                setShowOcr(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default VerifyMyCertificate; 
+export default VerifyMyCertificate;
