@@ -10,36 +10,12 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaPython, FaSalesforce } from "react-icons/fa";
 
 const dsa = [
-  /*{
-    name: "DSA Live Classes",
-    desc: "Master DSA: Join Live Classes Now!",
-    code: "/dsa-live-classes",
-    image: "/images/online-learning.png",
-  },*/
-  // {
-  //   name: "Campus Ambassador Program",
-  //   desc: "Campus Leaders: Join as an Ambassador!",
-  //   code: "/campus-ambassador",
-  //   image: "/images/announcer.png",
-  // },
-  // {
-  //   name: "2-Week Java Bootcamp",
-  //   desc: "Master Java: Join Live Classes!",
-  //   code: "/java-bootcamp",
-  //   image: "/images/online-learning.png",
-  // },
   {
     name: "5 Day Python Bootcamp",
     desc: "Master Python: Join Live Classes!",
-    code: "/python-bootcamp",
-    image: <FaPython size={24}/>,
+    code: "https://www.campuscode.in/python-bootcamp", 
+    image: <FaPython size={24} className="text-white" />,
   },
-  // {
-  //   name: "2.5 Month Salesforce Training Program",
-  //   desc: "Salesforce's powerful CRM platform",
-  //   code: "/salesforce-pioneers",
-  //   image: <FaSalesforce size={24}/>,
-  // }
 ];
 
 const HeaderDropdown = () => {

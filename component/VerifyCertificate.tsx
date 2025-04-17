@@ -6,10 +6,12 @@ import {
   Html5QrcodeSupportedFormats,
   Html5QrcodeScannerState,
 } from "html5-qrcode";
+import Tesseract from "tesseract.js";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ImageOcr from "./ImageOcr";
 import { MdCameraAlt } from "react-icons/md";
+import "react-toastify/dist/ReactToastify.css";
+import { PDFDocument } from "pdf-lib";
+import ResponsiveContainer from "./Spacing";
 
 const VerifyMyCertificate: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -20,15 +22,14 @@ const VerifyMyCertificate: React.FC = () => {
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
   const [currentCamera, setCurrentCamera] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [showOcr, setShowOcr] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
+
 
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const qrRegionId = "qr-reader";
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -37,14 +38,15 @@ const VerifyMyCertificate: React.FC = () => {
   useEffect(() => {
     Html5Qrcode.getCameras()
       .then((devices) => {
-        const mappedDevices = devices.map((device) => ({
-          deviceId: device.id,
-          label: device.label,
-          kind: "videoinput",
-          groupId: "",
-          toJSON: () => ({ deviceId: device.id, label: device.label }),
-        }));
-        setCameras(mappedDevices as MediaDeviceInfo[]);
+        setCameras(
+          devices.map((device) => ({
+            deviceId: device.id,
+            label: device.label,
+            kind: "videoinput",
+            groupId: "",
+            toJSON: () => ({ deviceId: device.id, label: device.label }),
+          })) as MediaDeviceInfo[]
+        );
       })
       .catch(console.error);
   }, []);
@@ -83,8 +85,8 @@ const VerifyMyCertificate: React.FC = () => {
       setCurrentCamera(deviceId);
       setScannerStarted(true);
     } catch (err) {
-      console.error("Error starting scanner:", err);
       toast.error("❌ Failed to access camera.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -113,25 +115,18 @@ const VerifyMyCertificate: React.FC = () => {
       const videoElement = document.querySelector("video") as HTMLVideoElement;
       const stream = videoElement?.srcObject as MediaStream;
       const track = stream?.getVideoTracks?.()[0];
+      const capabilities = track?.getCapabilities?.();
 
-      if (!track) {
-        toast.error("❌ No video track found");
-        return;
-      }
-
-      const capabilities = track.getCapabilities?.() as MediaTrackCapabilities & { torch?: boolean };
-      if (!capabilities?.torch) {
-        toast.error("❌ Flashlight not supported on this device");
+      if (!track || !(capabilities as any)?.torch) {
+        toast.error("❌ Flashlight not supported");
         return;
       }
 
       await track.applyConstraints({
         advanced: [{ torch: !torchOn }] as unknown as MediaTrackConstraintSet[],
       });
-
       setTorchOn((prev) => !prev);
     } catch (err) {
-      console.error("Torch toggle error:", err);
       toast.error("❌ Failed to toggle flashlight");
     }
   };
@@ -154,29 +149,6 @@ const VerifyMyCertificate: React.FC = () => {
     }
   };
 
-  const handleImageScan = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const html5Qr = new Html5Qrcode(qrRegionId);
-
-    try {
-      const result = await html5Qr.scanFile(file, true);
-      const match = result.match(/\/v\/([a-zA-Z0-9-_]+)/);
-      if (match?.[1]) {
-        setManualInput(match[1]);
-        toast.success("✅ QR code from image scanned!");
-      } else {
-        toast.error("❌ No valid certificate ID found in image.");
-      }
-    } catch (err) {
-      toast.error("❌ Could not scan QR from image.");
-      console.error("Image scan error:", err);
-    } finally {
-      html5Qr.clear();
-    }
-  };
-
   const triggerRedirect = (value: string) => {
     const input = value.trim();
     if (!input) {
@@ -190,15 +162,142 @@ const VerifyMyCertificate: React.FC = () => {
     }, 1000);
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const html5Qr = new Html5Qrcode(qrRegionId);
+    try {
+      const result = await html5Qr.scanFile(file, true);
+      const match = result.match(/\/v\/([a-zA-Z0-9-_]+)/);
+      if (match?.[1]) {
+        setManualInput(match[1]);
+        toast.success("✅ QR code from image scanned!");
+        return;
+      }
+    } catch (err) {
+      console.log("QR not detected, trying OCR...");
+    }
+
+    try {
+      const imageDataUrl = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+      });
+
+      const {
+        data: { text },
+      } = await Tesseract.recognize(imageDataUrl, "eng", {
+        logger: (m) => console.log(m),
+      });
+
+      const match = text.match(/\/v\/([a-zA-Z0-9-_]+)/);
+      if (match?.[1]) {
+        setManualInput(match[1]);
+        toast.success("✅ Text extracted using OCR!");
+      } else {
+        toast.error("❌ No valid certificate ID found with OCR.");
+      }
+    } catch (err) {
+      toast.error("❌ OCR failed.");
+      console.error("OCR Error:", err);
+    } finally {
+      html5Qr.clear();
+    }
+  };
+
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  setPdfLoading(true); // Start loader
+
+  try {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const pdfBytes = new Uint8Array(reader.result as ArrayBuffer);
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        const page = pdfDoc.getPages()[0];
+        const viewport = page.getSize();
+
+        // Render the page as an image
+        const canvas = document.createElement("canvas");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const context = canvas.getContext("2d");
+
+        const img = new Image();
+        img.onload = async () => {
+          context?.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const imageDataUrl = canvas.toDataURL("image/png");
+
+          // Try QR code from rendered image
+          const html5Qr = new Html5Qrcode(qrRegionId);
+          try {
+            const blob = await fetch(imageDataUrl).then((res) => res.blob());
+            const fileFromBlob = new File([blob], "image.png", { type: "image/png" });
+            const result = await html5Qr.scanFile(fileFromBlob, true);
+            const match = result.match(/\/v\/([a-zA-Z0-9-_]+)/);
+            if (match?.[1]) {
+              setManualInput(match[1]);
+              toast.success("✅ QR code found in PDF image!");
+              return;
+            }
+          } catch {
+            console.log("QR not found in PDF image. Trying OCR...");
+          }
+
+          // Try OCR
+          try {
+            const {
+              data: { text },
+            } = await Tesseract.recognize(imageDataUrl, "eng", {
+              logger: (m) => console.log(m),
+            });
+
+            const match = text.match(/\/v\/([a-zA-Z0-9-_]+)/);
+            if (match?.[1]) {
+              setManualInput(match[1]);
+              toast.success("✅ Certificate ID found via OCR!");
+            } else {
+              toast.error("❌ No valid certificate ID found in PDF.");
+            }
+          } catch (ocrErr) {
+            toast.error("❌ OCR failed on PDF image.");
+            console.error("OCR Error:", ocrErr);
+          } finally {
+            html5Qr.clear();
+          }
+        };
+
+        const pdfImage = await pdfDoc.saveAsBase64({ dataUri: true });
+        img.src = pdfImage;
+      } catch (err) {
+        toast.error("❌ Error processing PDF.");
+        console.error(err);
+      } finally {
+        setPdfLoading(false); // Stop loader
+      }
+    };
+
+    reader.readAsArrayBuffer(file);
+  } catch (err) {
+    toast.error("❌ Failed to read PDF.");
+    console.error("PDF Error:", err);
+    setPdfLoading(false);
+  }
+};
+
+
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) stopScanner();
     };
     const handleUnload = () => stopScanner();
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("beforeunload", handleUnload);
-
     return () => {
       stopScanner();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -206,17 +305,9 @@ const VerifyMyCertificate: React.FC = () => {
     };
   }, []);
 
-  function handleTextExtracted(text: string): void {
-    if (text.trim()) {
-      setManualInput(text.trim());
-      toast.success("✅ Text extracted successfully!");
-    } else {
-      toast.error("❌ No valid text extracted.");
-    }
-  }
-
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
+    <div> <ResponsiveContainer children={undefined}/>
+    <div className=" min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md flex flex-col items-center">
         <h2 className="text-xl font-bold mb-2 text-gray-700 dark:text-gray-200">
           {scannerStarted ? "Scan QR Code" : "Camera Access Required"}
@@ -241,22 +332,18 @@ const VerifyMyCertificate: React.FC = () => {
                 >
                   {torchOn ? "Flash Off" : "Flash On"}
                 </button>
-
-                <div className="w-full">
-                  <label className="text-sm text-gray-600 dark:text-gray-300">
-                    Zoom: {zoomValue.toFixed(1)}x
-                  </label>
-                  <input
-                    type="range"
-                    min="1"
-                    max="3"
-                    step="0.1"
-                    value={zoomValue}
-                    onChange={handleZoomChange}
-                    className="w-full"
-                    title="Zoom level"
-                  />
-                </div>
+                <label className="text-sm text-gray-600 dark:text-gray-300">
+                  Zoom: {zoomValue.toFixed(1)}x
+                </label>
+                <input
+                  type="range"
+                  min="1"
+                  max="3"
+                  step="0.1"
+                  value={zoomValue}
+                  onChange={handleZoomChange}
+                  className="w-full"
+                />
               </>
             )}
           </div>
@@ -287,8 +374,14 @@ const VerifyMyCertificate: React.FC = () => {
           Upload Certificate
           <input
             type="file"
-            accept="image/*"
-            onChange={handleImageScan}
+            accept="image/*,application/pdf"
+            onChange={(e) => {
+              if (e.target.files?.[0].type === "application/pdf") {
+                handlePdfUpload(e);
+              } else {
+                handleImageUpload(e);
+              }
+            }}
             className="hidden"
           />
         </label>
@@ -309,10 +402,7 @@ const VerifyMyCertificate: React.FC = () => {
               placeholder="Enter certificate ID here"
               className="w-full mt-1 pl-3 pr-12 p-2 text-black dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
             />
-            <MdCameraAlt
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-600 text-2xl cursor-pointer"
-              onClick={() => setShowOcr(true)}
-            />
+            {/* <MdCameraAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-600 text-2xl" /> */}
           </div>
         </div>
 
@@ -342,26 +432,7 @@ const VerifyMyCertificate: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {/* OCR Modal */}
-      {showOcr && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full relative">
-            <button
-              onClick={() => setShowOcr(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold"
-            >
-              &times;
-            </button>
-            <ImageOcr
-              onTextExtracted={(text) => {
-                handleTextExtracted(text);
-                setShowOcr(false);
-              }}
-            />
-          </div>
-        </div>
-      )}
+    </div>
     </div>
   );
 };

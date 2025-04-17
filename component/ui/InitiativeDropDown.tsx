@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -5,12 +6,10 @@ import { FaPython, FaSalesforce } from "react-icons/fa";
 
 const InitiativesDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: any) => {
-    // @ts-ignore
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
@@ -22,8 +21,16 @@ const InitiativesDropdown = () => {
     };
   }, []);
 
+  const handleMouseEnter = () => {
+    if (window.innerWidth >= 768) setIsOpen(true); // Desktop only
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth >= 768) setIsOpen(false); // Desktop only
+  };
+
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    if (window.innerWidth < 768) setIsOpen((prev) => !prev); // Mobile only
   };
 
   function cn(baseClass: string, conditionalClasses: { [key: string]: boolean }): string {
@@ -33,103 +40,42 @@ const InitiativesDropdown = () => {
       .join(" ");
     return `${baseClass} ${conditionalClassNames}`.trim();
   }
+
   return (
-    <div ref={dropdownRef} className="relative w-full z-50 dark:text-white border-none">
-      <button
-        onClick={toggleDropdown}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="p-2"
-      >
+    <div
+      ref={dropdownRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full z-50 dark:text-white"
+    >
+      <button onClick={toggleDropdown} className="p-2">
         <p className="flex items-center gap-x-2 text-2xl">
           Initiatives
           <IoMdArrowDropdown
             className={cn("rotate-0 transition-all duration-300", {
-              "rotate-180": hovered,
+              "rotate-180": isOpen,
             })}
           />
         </p>
       </button>
-      {/* bg-[#570a95] */}
+
       {isOpen && (
-        <ul className="absolute bg-[#4BA492] border-none   rounded-lg shadow-lg mt-2">
-          {/* <li>
-            <Link
-              href="/dsa-live-classes"
-              className="block px-4 py-2 md:hover:text-primaryPurple hover:text-white rounded-t-lg"
-            >
-              <p className="flex gap-x-3">
-                <Image
-                  src="/images/online-learning.png"
-                  alt="DSA_Course"
-                  width={23}
-                  height={23}
-                  className="text-white w-[23px] py-0.5"
-                />
-                <span className="text-2xl">DSA Live Classes</span>
-              </p>
-            </Link>
-          </li>
+        <ul className="absolute z-50 bg-[#4BA492] rounded-lg shadow-lg mt-2">
           <li>
-            <Link
-              href="/campus-ambassador"
-              className="block px-4 py-2 md:hover:text-primaryPurple hover:text-white"
+            <a
+              href="https://www.campuscode.in/python-bootcamp"
+              className="block px-4 py-2 hover:text-white text-white text-2xl"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <p className="flex gap-x-3 text-2xl">
-                <Image
-                  src="/images/online-learning.png"
-                  alt="DSA_Course"
-                  width={23}
-                  height={23}
-                  className=""
-                />
-                <span className="text-2xl">Campus Ambassadar Program</span>
+              <p className="flex items-center gap-x-3">
+                <FaPython size={24} className="text-white" />
+                <span>5 Days Python Bootcamp</span>
               </p>
-            </Link>
-          </li> */}
-
-          {/* <li>
-            <Link
-              href="/java-bootcamp"
-              className="block px-4 py-2 md:hover:text-primaryPurple"
-            >
-              <p className="flex gap-x-3 text-2xl">
-                <Image
-                  src="/images/online-learning.png"
-                  alt="Java Bootcamp"
-                  width={23}
-                  height={23}
-                  className="h py-0.5 "
-                />
-                <span className="text-2xl">2-Week Java Bootcamp</span>
-              </p>
-            </Link>
-          </li> */}
-            {/* <hr /> */}
-          <li>
-            <Link
-              href="/python-bootcamp"
-              className="block px-4 py-2 md:hover:text-primaryPurple border-none"
-            >
-              <p className="flex items-center gap-x-3 text-2xl">
-              <FaPython size={24} className="text-white"/>
-                <span className="text-2xl text-white">5 Days Python Bootcamp</span>
-              </p>
-            </Link>
+            </a>
           </li>
-            <hr />
-          {/* <li>
-            <Link
-              href="/salesforce-pioneers"
-              className="block px-4 py-2 md:hover:text-primaryPurple"
-            >
-              <p className="flex  items-center gap-x-3 text-2xl">
-              <FaSalesforce size={24} className="text-white"/>
-                <span className="text-2xl text-white">Salesforce Training Program</span>
-              </p>
-            </Link>
-          </li> */}
-
+          <hr className="border-white opacity-20" />
+          {/* Add more <li> items here as needed */}
         </ul>
       )}
     </div>

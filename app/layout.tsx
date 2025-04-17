@@ -20,7 +20,9 @@ export default function RootLayout({
      <body className="myfonts transition-colors duration-300 ease-in-out bg-white text-black dark:bg-gray-900 dark:text-white">
         <Providers>
           <Header />
+
           <main className="min-h-[calc(100vh-200px)]">{children}</main>
+
           <Footer />
         </Providers>
       </body>
