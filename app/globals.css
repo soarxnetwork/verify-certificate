@@ -2,9 +2,9 @@
 
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @config './tailwind.config.ts'; */
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -43,8 +43,10 @@ body {
   /* --text-color: #545759; */
 }
 
+@layer utilities{
 h1 {
   @apply font-medium text-6xl pt-2;
+}
 }
 
 .btn-primary {
@@ -97,9 +99,8 @@ h1 {
 
 nav {
   backdrop-filter: blur(20px);
-  background-color: rgb(31 41 55 / 0.5);
+  /* background-color: rgb(31 41 55 / 0.5); */
   box-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.09);
-  
   padding: 8px 20px;
 }
 
@@ -200,7 +201,12 @@ header {
     @apply text-4xl;
   }
 }
-
+.container-hero-dlc {
+  @apply lg:mx-0 mx-auto;
+}
+.containerImageCerti {
+  @apply sm:place-self-end place-self-center;
+}
 
 
 /* FOOTER PAGE START */

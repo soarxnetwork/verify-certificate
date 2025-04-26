@@ -306,7 +306,7 @@ const VerifyMyCertificate: React.FC = () => {
   }, []);
 
   return (
-    <div> <ResponsiveContainer children={undefined}/>
+    // <div> <ResponsiveContainer children={undefined}/>
     <div className=" min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-10">
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md flex flex-col items-center">
         <h2 className="text-xl font-bold mb-2 text-gray-700 dark:text-gray-200">
@@ -433,7 +433,7 @@ const VerifyMyCertificate: React.FC = () => {
         </div>
       </div>
     </div>
-    </div>
+    // </div>
   );
 };
 

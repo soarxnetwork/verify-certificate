@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Fade as Hamburger } from "hamburger-react";
 import { usePathname } from "next/navigation";
 import LightLogo from "@/public/campusCodeImages/Light Mode - NavBar Logo.svg";
@@ -48,6 +47,7 @@ const Header = () => {
                     height={50}
                     className="h-[45px] sm:h-[50px] md:h-[58px] w-auto"
                     alt="Header Logo"
+                    priority
                   />
                 </motion.div>
               )}
