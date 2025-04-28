@@ -10,6 +10,7 @@ import HeaderDropdown from "./HeaderDropDown";
 import ThemeSwitcher from "../DarkThemes";
 import InitiativesDropdown from "./InitiativeDropDown";
 import { motion } from "framer-motion";
+import ToggleButton from "./ToggleButton";
 
 const Header = () => {
   const pathname = usePathname();
@@ -99,7 +100,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-x-5">
-            <ThemeSwitcher />
+           <ToggleButton/>
 
             <span className="hidden md:flex">
               {/* <Pythonbootcamp /> */}
