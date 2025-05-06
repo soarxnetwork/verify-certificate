@@ -8,11 +8,8 @@ import {
 } from "html5-qrcode";
 import Tesseract from "tesseract.js";
 import { toast } from "react-toastify";
-import { MdCameraAlt } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
 import { PDFDocument } from "pdf-lib";
-import ResponsiveContainer from "./Spacing";
-
 const VerifyMyCertificate: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [manualInput, setManualInput] = useState("");
