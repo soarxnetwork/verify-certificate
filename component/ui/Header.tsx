@@ -63,7 +63,7 @@ const Header = () => {
                 }
               >
                 <a
-                  className="hover:text-[#4BA492] hover:transition-all ease-in-out duration-300 p-2"
+                  className="hover:text-[#5bcae6] hover:transition-all ease-in-out duration-300 p-2"
                   href="https://campuscode.in"
                   rel="noopener noreferrer"
                 >
@@ -79,7 +79,7 @@ const Header = () => {
                 }
               >
                 <a
-                  className="hover:text-[#4BA492] p-2"
+                  className="hover:text-[#5bcae6] p-2"
                   href="https://www.campuscode.in/events"
                  
                   rel="noopener noreferrer"
