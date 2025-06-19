@@ -57,7 +57,7 @@ const Footer = () => {
             <div className="mb-4 flex gap-2 max-w-[360px] items-center">
               <AiOutlineMail className="text-xl" />
               <a href="mailto:team@campuscode.in" className="max-[479px]:text-sm">
-                team@campuscode.in
+                soarxnetwork@gmail.com
               </a>
             </div>
             <div className="mb-4 flex gap-2 max-w-[360px] items-center">
@@ -67,18 +67,18 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="social-icons-footer pt-2 flex items-center gap-2">
-              <Link href="https://www.youtube.com/@campuscodein" target="_blank">
+              <Link href="https://www.youtube.com/@soarxnetwork" target="_blank">
                 <FaYoutube className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#FF0000] hover:border-[#FF0000] transition duration-300" />
               </Link>
-              <Link href="https://x.com/campuscodein" target="_blank">
+              <Link href="https://x.com/soarxnetwork" target="_blank">
                 <div className="border border-white rounded-full w-10 h-10 flex items-center justify-center cursor-pointer hover:bg-[#1DA1F2] hover:border-[#1DA1F2] transition duration-300">
                   <FaXTwitter className="text-xl fill-white" />
                 </div>
               </Link>
-              <Link href="https://www.linkedin.com/company/campuscodein" target="_blank">
+              <Link href="https://www.linkedin.com/company/soarxin" target="_blank">
                 <FaLinkedinIn className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#0077b5] hover:border-[#0077b5] transition duration-300" />
               </Link>
-              <Link href="https://www.instagram.com/campuscode" target="_blank">
+              <Link href="https://www.instagram.com/soarxnetwork" target="_blank">
                 <FaInstagram className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#E1306C] hover:border-[#E1306C] transition duration-300" />
               </Link>
             </div>
