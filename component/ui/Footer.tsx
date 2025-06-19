@@ -12,7 +12,7 @@ import DarkLogo from "@/public/campusCodeImages/darkLogo1.svg";
 // Icons
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { FaFacebook,FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { BsTelephone } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
@@ -92,6 +92,14 @@ const Footer = () => {
                   <FaInstagram className="text-xl text-white" />
                 </div>
               </Link>
+              <Link
+                    href="https://www.facebook.com/soarxnetwork/"
+                    target="_blank"
+                  >
+                    <div className="w-12 h-12 flex items-center justify-center border border-white rounded-full cursor-pointer hover:bg-[#0077b5] hover:border-[#0077b5] ease-in duration-300">
+                      <FaFacebook className="text-xl" />
+                    </div>
+                  </Link>
             </div>
           </div>
         </div>
