@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import "../styles/Footer.css";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 
@@ -38,7 +37,7 @@ const Footer = () => {
               src={theme === "dark" ? DarkLogo : DarkLogo}
               width={180}
               height={85}
-              className="h-[50px] sm:h-[65px] md:h-[85px] w-auto mb-4"
+              className="h-[65px] w-auto mb-4 object-contain"
               alt="Footer Logo"
             />
             <h2 className="font-bold text-3xl md:text-5xl -mt-3">
@@ -66,20 +65,26 @@ const Footer = () => {
             </div>
 
             {/* Social Icons */}
-            <div className="social-icons-footer pt-2 flex items-center gap-2">
+            <div className="pt-2 flex items-center gap-3">
               <Link href="https://www.youtube.com/@soarxnetwork" target="_blank">
-                <FaYoutube className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#FF0000] hover:border-[#FF0000] transition duration-300" />
+                <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#FF0000] hover:border-[#FF0000] transition duration-300">
+                  <FaYoutube className="text-xl text-white" />
+                </div>
               </Link>
               <Link href="https://x.com/soarxnetwork" target="_blank">
-                <div className="border border-white rounded-full w-10 h-10 flex items-center justify-center cursor-pointer hover:bg-[#1DA1F2] hover:border-[#1DA1F2] transition duration-300">
-                  <FaXTwitter className="text-xl fill-white" />
+                <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#1DA1F2] hover:border-[#1DA1F2] transition duration-300">
+                  <FaXTwitter className="text-xl text-white" />
                 </div>
               </Link>
               <Link href="https://www.linkedin.com/company/soarxin" target="_blank">
-                <FaLinkedinIn className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#0077b5] hover:border-[#0077b5] transition duration-300" />
+                <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] transition duration-300">
+                  <FaLinkedinIn className="text-xl text-white" />
+                </div>
               </Link>
               <Link href="https://www.instagram.com/soarxnetwork" target="_blank">
-                <FaInstagram className="text-4xl p-2 hover:fill-white border border-white rounded-full cursor-pointer hover:bg-[#E1306C] hover:border-[#E1306C] transition duration-300" />
+                <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#E1306C] hover:border-[#E1306C] transition duration-300">
+                  <FaInstagram className="text-xl text-white" />
+                </div>
               </Link>
             </div>
           </div>
