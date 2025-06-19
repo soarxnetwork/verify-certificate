@@ -29,13 +29,13 @@ const Footer = () => {
   if (!mounted) return null;
 
   return (
-    <footer className="block bg-[#4BA492] dark:border-t-2 dark:border-gray-800 dark:bg-gradient-to-b dark:from-black dark:to-[#4BA492] lg:pl-20 pl-4 pr-4 lg:pr-20 text-white pt-10">
+    <footer className="block bg-gradient-to-b from-black to-[#212F42] border-t-2 border-gray-800 lg:pl-20 pl-4 pr-4 lg:pr-20 text-white pt-10">
       <div className="custom-container pl-10 pb-5">
         <div className="flex-row flex items-center justify-between max-[767px]:flex-col max-[767px]:items-start">
           {/* Logo + Slogan */}
-          <div className="w-full max-w-[560px]">
+          <div className="w-full max-w-[560px] max-[991px]:mr-4 max-[991px]:flex-initial">
             <Image
-              src={theme === "dark" ? DarkLogo : LightLogo}
+              src={theme === "dark" ? DarkLogo : DarkLogo}
               width={180}
               height={85}
               className="h-[50px] sm:h-[65px] md:h-[85px] w-auto mb-4"
