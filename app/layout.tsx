@@ -6,10 +6,10 @@ import "@/app/globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Campus Code",
+  title: "SoarX",
   description:
-    "Campus Code is a nationwide community dedicated to empowering students through impactful events, sessions, and hackathons.",
-  metadataBase: new URL("https://www.campuscode.in/"),
+    "SoarX is a nationwide community dedicated to empowering students through impactful events, sessions, and hackathons.",
+  metadataBase: new URL("https://soarx.me/"),
 };
 export default function RootLayout({
   children,

@@ -23,8 +23,7 @@ function TermsPage() {
         2. SoarX provides online courses and conducts online classes, live
         demo, doubt clearing sessions for the students seeking to enrol for such
         courses (the &quot; Services&quot;), which Services are accessible at
-        https://www.soarx.me/ and any other websites through which Campus
-        Code makes the Services available (collectively, the &quot;Site &quot;)
+        https://www.soarx.me/ and any other websites through which Soarx makes the Services available (collectively, the &quot;Site &quot;)
         and as applications for mobile, tablet and other smart devices and
         application program interfaces (collectively, the
         &quot;Applications&quot;). <br /> <br /> 3. By accessing or using the
@@ -209,8 +208,7 @@ function TermsPage() {
           </li>
           <li>
             Recruit Or Otherwise Solicit Any Member To Join Third-Party Services
-            Or Websites That Are Competitive To SoarX, Without Campus
-            Code&apos;s Prior Written Approval;
+            Or Websites That Are Competitive To SoarX, Without Soarx&apos;s Prior Written Approval;
           </li>
           <li>
             Impersonate Any Person Or Entity, Or Falsify Or Otherwise
@@ -241,8 +239,7 @@ function TermsPage() {
           </li>
           <li>
             {" "}
-            Access, Tamper With, Or Use Non-Public Areas Of The Website, Campus
-            Code&apos;s Computer Systems, Or The Technical Delivery Systems Or
+            Access, Tamper With, Or Use Non-Public Areas Of The Website, Soarx&apos;s Computer Systems, Or The Technical Delivery Systems Or
             SoarX&apos;s Providers;
           </li>
           <li>
@@ -437,8 +434,7 @@ function TermsPage() {
         Exclusive Property Of SoarX And Its Licensors. You Will Not Change
         Any Copyright, Trademark, Service Mark Or Other Proprietary Rights
         Notices Incorporated In The Website. All Trademarks, Service Marks,
-        Logos, Trade Names, And Any Other Proprietary Designations Of Campus
-        Code Used On Or In Connection With The Website, And SoarX Content
+        Logos, Trade Names, And Any Other Proprietary Designations Of Soarx Used On Or In Connection With The Website, And SoarX Content
         Are Trademarks Or Registered Trademarks Of SoarX In India And
         Abroad. Trademarks, Service Marks, Logos, Trade Names And Any Other
         Proprietary Designations Of Third Parties Used On Or In Connection With
@@ -714,8 +710,7 @@ function TermsPage() {
             reasonable control.
           </li>
           <li>
-            You may not assign or transfer these Terms without Campus
-            Code&apos;s prior written consent. Any attempt by you to assign or
+            You may not assign or transfer these Terms without Soarx&apos;s prior written consent. Any attempt by you to assign or
             transfer these Terms, without such consent, will be of no effect.
             SoarX may assign or transfer these Terms, at its sole
             discretion, without restriction. Subject to the foregoing, these
