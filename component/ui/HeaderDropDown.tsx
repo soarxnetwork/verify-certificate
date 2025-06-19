@@ -48,7 +48,7 @@ const HeaderDropdown = () => {
         <div className="relative flex items-center gap-2 hover:cursor-pointer">
           <p
             className={cn("select-none truncate", {
-              "text-[#4BA492]": hovered,
+              "text-[#5bcae6]": hovered,
             })}
           >
             Initiatives

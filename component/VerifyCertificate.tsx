@@ -316,7 +316,7 @@ const VerifyMyCertificate: React.FC = () => {
           <div className="flex flex-col gap-2 w-full mt-4">
             <button
               onClick={switchCamera}
-              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-sm"
+              className=" bg-[#212F42] hover:bg-[#5bcae6] text-white hover:text-[#212F42] px-2 py-1 rounded text-sm"
             >
               Switch Camera
             </button>
@@ -355,7 +355,7 @@ const VerifyMyCertificate: React.FC = () => {
                 )?.deviceId || cameras[0]?.deviceId
               )
             }
-            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+            className="mt-4 px-4 py-2 bg-[#212F42] hover:bg-[#5bcae6] text-white hover:text-[#212F42] rounded"
           >
             Allow Camera
           </button>
@@ -367,7 +367,7 @@ const VerifyMyCertificate: React.FC = () => {
           </div>
         )}
 
-        <label className="mt-4 w-full text-center text-blue-500 dark:text-blue-400 cursor-pointer hover:underline">
+        <label className="mt-4 w-full text-center text-[#5bcae6]  cursor-pointer hover:underline">
           Upload Certificate
           <input
             type="file"
@@ -397,7 +397,7 @@ const VerifyMyCertificate: React.FC = () => {
               value={manualInput}
               onChange={(e) => setManualInput(e.target.value)}
               placeholder="Enter certificate ID here"
-              className="w-full mt-1 pl-3 pr-12 p-2 text-black dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 pl-3 pr-12 p-2 text-black dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-[#212F42]-400"
             />
             {/* <MdCameraAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-600 text-2xl" /> */}
           </div>
@@ -421,8 +421,8 @@ const VerifyMyCertificate: React.FC = () => {
             disabled={!manualInput.trim()}
             className={`px-4 py-2 rounded text-white ${
               manualInput.trim()
-                ? "bg-green-500 hover:bg-green-600"
-                : "bg-gray-300 cursor-not-allowed"
+                ? " bg-[#212F42] hover:bg-[#5bcae6] text-white hover:text-[#212F42]"
+                : "bg-gray-500 cursor-not-allowed"
             }`}
           >
             Verify

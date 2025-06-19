@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Fade as Hamburger } from "hamburger-react";
 import { usePathname } from "next/navigation";
-import LightLogo from "@/public/campusCodeImages/Light Mode - NavBar Logo.svg";
-import DarkLogo from "@/public/campusCodeImages/Dark Mode - NavBar Logo.svg";
+import LightLogo from "@/public/campusCodeImages/lightLogo1.svg";
+import DarkLogo from "@/public/campusCodeImages/darkLogo1.svg";
 import { useTheme } from "next-themes";
 import HeaderDropdown from "./HeaderDropDown";
 import ThemeSwitcher from "../DarkThemes";
@@ -63,7 +63,7 @@ const Header = () => {
                 }
               >
                 <a
-                  className="hover:text-[#4BA492] hover:transition-all ease-in-out duration-300 p-2"
+                  className="hover:text-[#5bcae6] hover:transition-all ease-in-out duration-300 p-2"
                   href="https://campuscode.in"
                   rel="noopener noreferrer"
                 >
@@ -79,7 +79,7 @@ const Header = () => {
                 }
               >
                 <a
-                  className="hover:text-[#4BA492] p-2"
+                  className="hover:text-[#5bcae6] p-2"
                   href="https://www.campuscode.in/events"
                  
                   rel="noopener noreferrer"
