@@ -7,8 +7,8 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 
 // Logos
-import LightLogo from "@/public/campusCodeImages/Light Mode - Footer Logo.svg";
-import DarkLogo from "@/public/campusCodeImages/Dark Mode - Footer Logo.svg";
+import LightLogo from "@/public/campusCodeImages/lightLogo1.svg";
+import DarkLogo from "@/public/campusCodeImages/darkLogo1.svg";
 
 // Icons
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -38,7 +38,7 @@ const Footer = () => {
               src={theme === "dark" ? DarkLogo : LightLogo}
               width={180}
               height={85}
-              className="h-[50px] sm:h-[65px] md:h-[85px] w-auto"
+              className="h-[50px] sm:h-[65px] md:h-[85px] w-auto mb-4"
               alt="Footer Logo"
             />
             <h2 className="font-bold text-3xl md:text-5xl -mt-3">
