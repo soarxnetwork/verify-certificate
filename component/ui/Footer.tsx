@@ -39,6 +39,7 @@ const Footer = () => {
               height={85}
               className="h-[65px] w-auto mb-4 object-contain"
               alt="Footer Logo"
+              priority
             />
             <h2 className="font-bold text-3xl md:text-5xl -mt-3">
               Rise Together, Soar Higher
@@ -49,19 +50,24 @@ const Footer = () => {
           <div className="max-[767px]:mt-8">
             <div className="mb-4 flex max-w-[360px] items-center gap-2">
               <FontAwesomeIcon icon={faLocationDot} className="h-[23px]" />
-              <p className="max-[479px]:text-sm">
+              <p className="max-[479px]:text-sm hover:text-[#5bcae6]">
                 Kurukshetra, Haryana, India 136118
               </p>
             </div>
             <div className="mb-4 flex gap-2 max-w-[360px] items-center">
               <AiOutlineMail className="text-xl" />
-              <a href="mailto:team@campuscode.in" className="max-[479px]:text-sm">
+              <a
+                href="mailto:soarxnetwork@gmail.com"
+                className="max-[479px]:text-sm hover:text-[#5bcae6]"
+              >
                 soarxnetwork@gmail.com
               </a>
             </div>
             <div className="mb-4 flex gap-2 max-w-[360px] items-center">
               <BsTelephone className="text-xl" />
-              <a href="tel:+91 8708686261">+91 8708686261</a>
+              <a href="tel:+91 8708686261" className=" hover:text-[#5bcae6]">
+                +91 8708686261
+              </a>
             </div>
 
             {/* Social Icons */}
@@ -96,13 +102,22 @@ const Footer = () => {
         {/* Footer Bottom Links */}
         <div className="flex-row pb-6 pt-7 flex justify-between items-center max-[767px]:flex-col text-center max-[767px]:items-start max-[479px]:flex-col-reverse">
           <div className="font-semibold transition-all duration-300 text-center sm:text-center">
-            <Link href="/privacy" className="inline-block font-normal hover:text-slate-500 dark:hover:text-black sm:pr-6 lg:pr-12 py-2">
+            <Link
+              href="/privacy"
+              className="inline-block font-normal hover:text-[#5bcae6] sm:pr-6 lg:pr-12 py-2"
+            >
               Privacy Policy
             </Link>
-            <Link href="/refund-policy" className="inline-block font-normal hover:text-slate-500 dark:hover:text-black sm:pr-6 lg:pr-12 py-2">
+            <Link
+              href="/refund-policy"
+              className="inline-block font-normal hover:text-[#5bcae6] sm:pr-6 lg:pr-12 py-2"
+            >
               Refunds & Cancellation Policy
             </Link>
-            <Link href="/terms" className="inline-block font-normal hover:text-slate-500 dark:hover:text-black sm:pr-6 lg:pr-12 py-2">
+            <Link
+              href="/terms"
+              className="inline-block font-normal hover:text-[#5bcae6] sm:pr-6 lg:pr-12 py-2"
+            >
               Terms & Conditions
             </Link>
           </div>
