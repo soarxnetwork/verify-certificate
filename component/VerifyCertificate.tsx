@@ -367,7 +367,7 @@ const VerifyMyCertificate: React.FC = () => {
           </div>
         )}
 
-        <label className="mt-4 w-full text-center text-blue-500 dark:text-blue-400 cursor-pointer hover:underline">
+        <label className="mt-4 w-full text-center text-[#5bcae6]  cursor-pointer hover:underline">
           Upload Certificate
           <input
             type="file"
