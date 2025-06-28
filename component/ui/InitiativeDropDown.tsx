@@ -63,7 +63,7 @@ const InitiativesDropdown = () => {
         <ul className="absolute z-50 bg-[#4BA492] rounded-lg shadow-lg mt-2">
           <li>
             <a
-              href="https://www.campuscode.in/python-bootcamp"
+              href="https://soarx.me/python-bootcamp"
               className="block px-4 py-2 hover:text-white text-white text-2xl"
               target="_blank"
               rel="noopener noreferrer"

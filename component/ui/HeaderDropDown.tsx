@@ -13,7 +13,7 @@ const dsa = [
   {
     name: "5 Day Python Bootcamp",
     desc: "Master Python: Join Live Classes!",
-    code: "https://www.campuscode.in/python-bootcamp", 
+    code: "https://soarx.me/python-bootcamp", 
     image: <FaPython size={24} className="text-white" />,
   },
 ];
