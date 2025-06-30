@@ -17,13 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html  className="dark" lang="en" suppressHydrationWarning>
+    <html className="dark" lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon1.svg" type="image/svg+xml" />
+      </head>
       <body className="myfonts transition-colors duration-300 ease-in-out bg-white text-black dark:bg-gray-900 dark:text-white">
         <NextProvider>
-        <Providers>
-          <Header />
-          <main className="min-h-[calc(100vh-200px)]">{children}</main>
-          <Footer />
+          <Providers>
+            <Header />
+            <main className="min-h-[calc(100vh-200px)]">{children}</main>
+            <Footer />
           </Providers>
         </NextProvider>
       </body>
