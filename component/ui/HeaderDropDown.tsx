@@ -7,7 +7,8 @@ import React, { useEffect, useState } from "react";
 import { RxDropdownMenu } from "react-icons/rx";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-import { FaPython, FaSalesforce } from "react-icons/fa";
+import { FaPython, FaUser } from "react-icons/fa";
+import { PiBankDuotone } from "react-icons/pi";
 
 const dsa = [
   {
@@ -15,6 +16,18 @@ const dsa = [
     desc: "Master Python: Join Live Classes!",
     code: "https://soarx.me/python-bootcamp", 
     image: <FaPython size={24} className="text-white" />,
+  },
+  {
+    name: "Chapter Leader Program",
+    desc: "Represent us at your college",
+    code: "https://soarx.me/chapter-leaders",
+    image: <PiBankDuotone size={24} />,
+  },
+  {
+    name: "Apply to our Campus Programs",
+    desc: "Be the face of SoarX in your college!",
+    code: "https://soarx.me/campus", // 
+    image: <FaUser size={24} />,
   },
 ];
 

@@ -1,1 +1,2 @@
-export const baseURL = "https://www.soarx.me";
+
+export const baseURL = "https://verify.soarx.me";

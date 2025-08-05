@@ -12,7 +12,12 @@ import DarkLogo from "@/public/campusCodeImages/darkLogo1.svg";
 // Icons
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { BsTelephone } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
@@ -72,7 +77,10 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="pt-2 flex items-center gap-3">
-              <Link href="https://www.youtube.com/@soarxnetwork" target="_blank">
+              <Link
+                href="https://www.youtube.com/@soarxnetwork"
+                target="_blank"
+              >
                 <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#FF0000] hover:border-[#FF0000] transition duration-300">
                   <FaYoutube className="text-xl text-white" />
                 </div>
@@ -82,14 +90,28 @@ const Footer = () => {
                   <FaXTwitter className="text-xl text-white" />
                 </div>
               </Link>
-              <Link href="https://www.linkedin.com/company/soarxin" target="_blank">
+              <Link
+                href="https://www.linkedin.com/company/soarxin"
+                target="_blank"
+              >
                 <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#0077b5] hover:border-[#0077b5] transition duration-300">
                   <FaLinkedinIn className="text-xl text-white" />
                 </div>
               </Link>
-              <Link href="https://www.instagram.com/soarxnetwork" target="_blank">
+              <Link
+                href="https://www.instagram.com/soarxnetwork"
+                target="_blank"
+              >
                 <div className="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-[#E1306C] hover:border-[#E1306C] transition duration-300">
                   <FaInstagram className="text-xl text-white" />
+                </div>
+              </Link>
+              <Link
+                href="https://www.facebook.com/soarxnetwork/"
+                target="_blank"
+              >
+                <div className="w-12 h-12 flex items-center justify-center border border-white rounded-full cursor-pointer hover:bg-[#0077b5] hover:border-[#0077b5] ease-in duration-300">
+                  <FaFacebook className="text-xl" />
                 </div>
               </Link>
             </div>

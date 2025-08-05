@@ -3,15 +3,9 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    {
-      url: `${baseURL}/events`,
-    },
-    {
-      url: `${baseURL}/about`,
-    },
-    {
-      url: `${baseURL}/dsa`,
-    },
+     {
+      url: `${baseURL}/`,
+      },
     {
       url: `${baseURL}/privacy`,
     },
@@ -20,12 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseURL}/terms`,
-    },
-    {
-      url: `${baseURL}/dsa-live-classes`,
-    },
-    {
-      url: `${baseURL}/campus-ambassador`,
     },
   ];
 }
