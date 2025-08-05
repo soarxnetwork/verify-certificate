@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
      {
       url: `${baseURL}/`,
-    },
+      },
     {
       url: `${baseURL}/privacy`,
     },

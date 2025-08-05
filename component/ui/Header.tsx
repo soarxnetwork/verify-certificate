@@ -27,6 +27,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <nav className="navbar lg:ml-16 lg:mr-20 rounded-lg bg-white dark:border-0 dark:bg-gray-800  flex justify-between items-center">
           <a
+
             href="https://soarx.me"
             rel="noopener noreferrer"
           >
@@ -64,7 +65,8 @@ const Header = () => {
               >
                 <a
                   className="hover:text-[#5bcae6] hover:transition-all ease-in-out duration-300 p-2"
-                  href="https://soarx.me"
+                  href="https://soarx.me/"
+
                   rel="noopener noreferrer"
                 >
                   Home
@@ -129,7 +131,6 @@ const Header = () => {
                 <a
                   className="hover:text-[#4BA492] hover:transition-all ease-in-out duration-300 p-2"
                   href="https://soarx.me"
-                 
                   rel="noopener noreferrer"
                 >
                   Home
